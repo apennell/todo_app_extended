@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="span4">
+        <h4>Edit To Do Item</h4>
+        <div class="well">
+          <%= form_for :todo, url: todo_path(@todo), method: :patch do |f| %>
+            <p>
+              <%= f.label :Edit_Item %><br>
+              <%= f.text_field :description %>
+            </p>
+            <p>
+              <%= f.submit "Save Edit" %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

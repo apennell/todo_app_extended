@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To Do List</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="span4">
+        <h1>Authors</h1>
+        <hr>
+        <div class="well">
+          <!-- all authors listed here -->
+          <%= form_tag('/authors/complete', :method => 'post') do %>
+            <ul style='list-style-type:none;'>
+              <!-- list authors -->
+              <% @authors.each do |author| %>
+                <li><%= author[:name] %>, age <%= author[:age] %></li>
+
+                <!-- list to do items for author -->
+                <ul style='list-style-type:none;'>
+                  <% @todos.each do |todo| %>
+
+                      <% if todo.completed == true %>
+                        <!-- If item is complete, show with strikethrough -->
+                        <li style="color:grey;"><%= check_box_tag "todos_checkbox[]",todo.id %>     <strike><%= todo[:description] %></strike> | <%= link_to 'Edit', edit_todos_path(todo.id) %> | <%= link_to 'Delete', delete_todos_path(todo.id), :method => :delete %></li>
+                      <% else %>
+                        <!-- If item isn't complete, display normally -->
+                        <li><%= check_box_tag  "todos_checkbox[]",todo.id %>     <%= todo[:description] %><%= todo[:author] %> | <%= link_to 'Edit', edit_todos_path(todo.id) %> | <%= link_to 'Delete', delete_todos_path(todo.id) %></li>
+                      <% end %>
+                    
+                  <% end %>
+                </ul>
+              <% end %>
+              <% end %>
+            </ul>
+        </div> <!-- end well class -->
+
+        <!-- new todo item form -->
+        <br><br>
+        <h2>Add author</h2>
+        <%= form_for :author do |f| %>
+          <p>
+            <%= f.label :Name %><br>
+            <%= f.text_field :name %><br><br>
+            <%= f.label :Age %><br>
+            <%= f.text_field :age %>
+          </p>
+          <p>
+            <%= f.submit %>
+          </p>
+        <% end %>
+        <br><br>
+        <h2>Thought of more stuff to do?</h2>
+        <%= form_for :item do |f| %>
+          <p>
+            <%= f.label :Add_Item %><br>
+            <%= f.text_field :description %>
+          </p>
+          <p>
+            <%= f.submit %>
+          </p>
+        <% end %>
+
+      </div> <!-- end span4 -->
+    </div> <!-- end row -->
+  </div> <!-- end container -->
