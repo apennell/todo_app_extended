@@ -15,14 +15,13 @@
           <!-- all todos listed here -->
           <%= form_tag('/todos/complete', :method => 'post') do %>
             <ul style='list-style-type:none;'>
-
               <% @todos.each do |todo| %>
                 <% if todo.completed == true %>
                   <!-- If item is complete, show with strikethrough -->
-                  <li style="color:grey;"><%= check_box_tag "todos_checkbox[]",todo.id %>     <strike><%= todo[:description] %></strike> | <%= link_to 'Edit', edit_todos_path(todo.id) %> | <%= link_to 'Delete', delete_todos_path(todo.id), :method => :delete %></li>
+                  <li style="color:grey;"><%= check_box_tag "todos_checkbox[]",todo.id %>     <strike><%= todo[:description] %></strike> <%= link_to 'Edit', edit_todos_path(todo.id) %> | <%= link_to 'Delete', delete_todos_path(todo.id), :method => :delete %></li>
                 <% else %>
                   <!-- If item isn't complete, display normally -->
-                  <li><%= check_box_tag  "todos_checkbox[]",todo.id %>     <%= todo[:description] %><%= todo[:author] %> | <%= link_to 'Edit', edit_todos_path(todo.id) %> | <%= link_to 'Delete', delete_todos_path(todo.id) %></li>
+                  <li><%= check_box_tag  "todos_checkbox[]",todo.id %>     <%= todo[:description] %> <%= link_to 'Edit', edit_todos_path(todo.id) %> | <%= link_to 'Delete', delete_todos_path(todo.id) %></li>
                 <% end %>
               <% end %>
               <br>

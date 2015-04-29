@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # set route to root directory
   root to: 'todos#index'
 
@@ -34,5 +35,11 @@ Rails.application.routes.draw do
 
   get '/authors', to: 'authors#index'
 
+  get '/authors/:id', to: 'authors#show'
+
   post '/authors', to: 'authors#create'
+
+  get '/authors/:id/todos', to: 'todos#index'
+
+  post 'authors/:id/todos', to: 'todos#create'
 end

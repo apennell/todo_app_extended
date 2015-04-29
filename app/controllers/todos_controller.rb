@@ -6,7 +6,10 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = params.require(:item).permit(:description)
+
+    @todo = params.require(:todo).permit(:description)
+    @todo[:completed] = false
+
     Todo.create(@todo)
     redirect_to "/"
   end
@@ -27,7 +30,7 @@ class TodosController < ApplicationController
   def destroy
     @todo = Todo.find(params[:id])
     @todo.destroy
-    redirect_to '/'
+    redirect_to "/"
   end
 
   def delete_complete
@@ -37,7 +40,7 @@ class TodosController < ApplicationController
   def destroy_complete
     @completed = Todo.where(:completed => true)
     @completed.destroy
-    redirect_to '/'
+    redirect_to "/"
   end
 
   def edit
@@ -50,7 +53,7 @@ class TodosController < ApplicationController
     if @todo.update(todo)
       redirect_to todos_path
     else
-      render 'edit'
+      render "/edit"
     end
   end
 end
